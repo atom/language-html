@@ -6,6 +6,8 @@
   'inc'
   'tmpl'
   'tpl'
+  'ejs'
+  'hbs'
 ]
 'firstLineMatch': '<(?i:(!DOCTYPE\\s*)?html)'
 'injections':
