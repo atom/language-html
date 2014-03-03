@@ -5,6 +5,7 @@
   'tmpl'
   'tpl'
   'xhtml'
+  'hbs'
 ]
 'firstLineMatch': '<(?i:(!DOCTYPE\\s*)?html)'
 'injections':
