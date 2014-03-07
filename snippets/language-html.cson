@@ -2,6 +2,9 @@
   'HTML — 5':
     'prefix': 'doctype'
     'body': '<!DOCTYPE html>\n'
+  'HTML Tag':
+    'prefix': 'html'
+    'body': '<html>\n\t$1\n</html>'
   'Option':
     'prefix': 'opt'
     'body': '<option${1: value="${2:option}"}>${3:option}</option>'
@@ -65,6 +68,15 @@
   'Comment':
     'prefix': 'comment'
     'body': '<!-- $1 -->'
+  'Ordered List':
+    'prefix': 'ol'
+    'body': '<ol>\n\t$1\n</ol>'
+  'Unordered List':
+    'prefix': 'ul'
+    'body': '<ul>\n\t$1\n</ul>'
+  'List Item':
+    'prefix': 'li'
+    'body': '<li>$1</li>'
 '.text.html:not(.meta.tag)':
   'Body':
     'prefix': 'body'
