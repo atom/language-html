@@ -62,6 +62,18 @@
   'Select':
     'prefix': 'select'
     'body': '<select id="$1" name="$2">\n\t$3\n</select>'
+  'Underline':
+    'prefix': 'u'
+    'body': '<u>$1</u>'
+  'Ordered List':
+    'prefix': 'ol'
+    'body': '<ol>\n\t<li>$1</li>\n</ol>'
+  'Unordered List':
+    'prefix': 'ul'
+    'body': '<ul>\n\t<li>$1</li>\n</ul>'
+  'List Item':
+    'prefix': 'li'
+    'body': '<li>$1</li>'
   'Comment':
     'prefix': 'comment'
     'body': '<!-- $1 -->'
