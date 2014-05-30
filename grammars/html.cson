@@ -6,6 +6,7 @@
   'tmpl'
   'tpl'
   'xhtml'
+  'liquid'
 ]
 'firstLineMatch': '<(?i:(!DOCTYPE\\s*)?html)'
 'injections':
