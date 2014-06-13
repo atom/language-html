@@ -1,0 +1,2 @@
+'.editor':
+  'cmd-alt-.': 'language-html:close-tag'
