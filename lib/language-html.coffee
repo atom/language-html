@@ -23,7 +23,6 @@ module.exports =
 
     stack
 
-
   lastTagNotClosedInFragment: (fragment) ->
     stack = []
     matchExpr = /<(\w+)|<\/(\w*)/
@@ -38,6 +37,13 @@ module.exports =
 
     stack.length > 0
 
+  closingTagForFragments: (preFragment, postFragment) ->
+    tag = @lastTagNotClosedInFragment( preFragment )
+    if @tagDoesNotCloseInFragment( tag, postFragment )
+      return tag
+    else
+      return null
+
   closeTag: ->
     editor = atom.workspace.getActiveEditor()
     curPos = editor.getCursorBufferPosition()
@@ -45,6 +51,5 @@ module.exports =
     preFragment = editor.getTextInBufferRange( new Range( textLimits.start, curPos) )
     postFratment = editor.getTextInBufferRange( new Range( curPos, textLimits.end ) )
 
-    tag = @lastTagNotClosedInFragment( preFragment )
-    if @tagDoesNotCloseInFragment( tag, postFratment )
-      editor.insertText( "</" + tag + ">" )
+    tag = closingTagForFragments(preFragment, postFragment)
+    editor.insertText( "</" + tag + ">" ) if tag?
