@@ -7,11 +7,9 @@ module.exports =
   activate: ->
     atom.workspaceView.command "language-html:close-tag", => @closeTag()
 
-  lastTagNotClosedInFragment: (fragment) ->
-    stack = []
-    matchExpr = /<(\w+)|<\/(\w*)/
+  parseFragment: (fragment, stack, matchExpr, cond) ->
     match = fragment.match(matchExpr)
-    while match
+    while match && cond(stack)
       if SELF_CLOSING_TAGS.indexOf(match[1]) < 0
         topElem = stack[stack.length-1]
 
@@ -23,21 +21,20 @@ module.exports =
       fragment = fragment.substr(match.index + match[0].length)
       match = fragment.match(matchExpr)
 
+    stack
+
+
+  lastTagNotClosedInFragment: (fragment) ->
+    stack = []
+    matchExpr = /<(\w+)|<\/(\w*)/
+    stack = @parseFragment( fragment, stack, matchExpr, (x) -> true )
+
     stack[ stack.length - 1 ]
 
   tagDoesNotCloseInFragment: ( tag, fragment ) ->
     stack = [tag]
     matchExpr = new RegExp( "<(" + tag + ")|<\/(" + tag + ")" )
-    match = fragment.match( matchExpr )
-    while match && stack.length > 0
-      topElem = stack[stack.length-1]
-      if match[2] && topElem == match[2]
-        stack.pop()
-      else
-        stack.push match[1]
-
-      fragment = fragment.substr( match.index + match[0].length )
-      match = fragment.match(matchExpr)
+    stack = @parseFragment( fragment, stack, matchExpr, (s) -> s.length > 0 )
 
     stack.length > 0
 
