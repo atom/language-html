@@ -1,4 +1,4 @@
-Range = require( 'node_modules/text-buffer/lib/range' )
+{Range} = require 'atom'
 
 SELF_CLOSING_TAGS=["area","base","br","col","command","embed","hr","img",
   "input","keygen","link","meta","param","source","track","wbr"]
@@ -79,7 +79,7 @@ module.exports =
     curPos = editor.getCursorBufferPosition()
     textLimits = editor.getBuffer().getRange()
     preFragment = editor.getTextInBufferRange( new Range( textLimits.start, curPos) )
-    postFratment = editor.getTextInBufferRange( new Range( curPos, textLimits.end ) )
+    postFragment = editor.getTextInBufferRange( new Range( curPos, textLimits.end ) )
 
-    tag = closingTagForFragments(preFragment, postFragment)
+    tag = @closingTagForFragments(preFragment, postFragment)
     editor.insertText( "</" + tag + ">" ) if tag?
