@@ -53,6 +53,11 @@ describe 'language-html', ->
       postFragment = "</body></html>"
       expect(langHtml.closingTagForFragments(preFragment, postFragment)).toBe("p")
 
+    it 'correctly handles empty postFragment', ->
+      preFragment = "<html><head></head><body><h1></h1><p>"
+      postFragment = ""
+      expect(langHtml.closingTagForFragments(preFragment, postFragment)).toBe("p")
+
     it 'returns null if there is no open tag to be closed', ->
       preFragment = "<html><head></head><body><h1></h1><p>"
       postFragment = "</p></body></html>"
