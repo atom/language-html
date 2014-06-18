@@ -66,69 +66,96 @@ describe 'language-html', ->
       expect(langHtml.closingTagForFragments(preFragment, postFragment)).toBe(null)
 
   describe 'closeTag', ->
+    [editor, editorView, activationPromise] = []
+
     beforeEach ->
-      atom.workspaceView = new WorkspaceView();
       atom.project.setPath path.join(__dirname, 'fixtures')
-      atom.workspaceView.openSync('sample.html')
-      atom.workspaceView.attachToDom();
-      @editorView = atom.workspaceView.getActiveView();
-      @editor = @editorView.getEditor()
-      atom.packages.activatePackage("language-html")
+      atom.workspaceView = new WorkspaceView();
+      atom.workspace = atom.workspaceView.model
+      editor = atom.workspaceView.openSync('sample.html')
+      editorView = atom.workspaceView.getActiveView();
+
+      activationPromise = atom.packages.activatePackage("language-html")
 
     it 'closes the first non closed tag', ->
-      @editor.setCursorBufferPosition(new Point(5,14))
-      @editorView.trigger('language-html:close-tag')
+      editor.setCursorBufferPosition(new Point(5,14))
+      editorView.trigger('language-html:close-tag')
 
-      cursorPos = @editor.getCursorBufferPosition()
-      insertedText = @editor.getTextInRange( new Range([5,14], [5,18]) )
+      waitsForPromise ->
+        activationPromise
 
-      expect( cursorPos ).toEqual( new Point(5, 18) )
-      expect( insertedText ).toEqual('</a>')
+      runs ->
+        cursorPos = editor.getCursorBufferPosition()
+        insertedText = editor.getTextInRange( new Range([5,14], [5,18]) )
+
+        expect( cursorPos ).toEqual( new Point(5, 18) )
+        expect( insertedText ).toEqual('</a>')
 
     it 'closes the following unclosed tags if called repeatedly', ->
-      @editor.setCursorBufferPosition(new Point(5,14))
-      @editorView.trigger('language-html:close-tag')
-      @editorView.trigger('language-html:close-tag')
+      editor.setCursorBufferPosition(new Point(5,14))
+      editorView.trigger('language-html:close-tag')
 
-      cursorPos = @editor.getCursorBufferPosition()
-      insertedText = @editor.getTextInRange( new Range([5,18], [5,22]) )
+      waitsForPromise ->
+        activationPromise
 
-      expect( cursorPos ).toEqual( new Point(5, 22) )
-      expect( insertedText ).toEqual('</p>')
+      runs ->
+        editorView.trigger('language-html:close-tag')
+        cursorPos = editor.getCursorBufferPosition()
+        insertedText = editor.getTextInRange( new Range([5,18], [5,22]) )
+
+        expect( cursorPos ).toEqual( new Point(5, 22) )
+        expect( insertedText ).toEqual('</p>')
+
+    it 'does not close any tag if no unclosed tag can be found at the insertion point', ->
+      editor.setCursorBufferPosition(new Point(5,14))
+      editorView.trigger('language-html:close-tag')
+
+      waitsForPromise ->
+        activationPromise
+
+      runs ->
+        #closing all currently open tags
+        editorView.trigger('language-html:close-tag')
+        editor.setCursorBufferPosition(new Point(13,11))
+        editorView.trigger('language-html:close-tag')
+        editorView.trigger('language-html:close-tag')
+        editor.setCursorBufferPosition(new Point(15,0))
+        editorView.trigger('language-html:close-tag')
+        editorView.trigger('language-html:close-tag')
+        console.log(editor.getText())
+
+        # positioning on an already closed tag
+        editor.setCursorBufferPosition(new Point(11,9))
+        editorView.trigger('language-html:close-tag')
+        expect( editor.getCursorBufferPosition() ).toEqual(new Point(11,9))
+
+    it 'does not get confused in case of nested identical tags -- tag not closing', ->
+      editor.setCursorBufferPosition(new Point(13,11))
+      editorView.trigger('language-html:close-tag')
+
+      waitsForPromise ->
+        activationPromise
+
+      runs ->
+        editorView.trigger('language-html:close-tag')
+        cursorPos = editor.getCursorBufferPosition()
+        expect( cursorPos ).toEqual( new Point(13,16) )
+
 
     it 'does not get confused in case of nested identical tags -- tag closing', ->
-      @editor.setCursorBufferPosition(new Point(13,11))
-      @editorView.trigger('language-html:close-tag')
+      editor.setCursorBufferPosition(new Point(13,11))
+      editorView.trigger('language-html:close-tag')
 
-      cursorPos = @editor.getCursorBufferPosition()
-      insertedText = @editor.getTextInRange( new Range([13,10], [13,16]) )
+      waitsForPromise ->
+        activationPromise
 
-      expect( cursorPos ).toEqual( new Point(13, 16) )
-      expect( insertedText ).toEqual('</div>')
+      runs ->
+        cursorPos = editor.getCursorBufferPosition()
+        insertedText = editor.getTextInRange( new Range([13,10], [13,16]) )
 
-      @editorView.trigger('language-html:close-tag')
-      cursorPos = @editor.getCursorBufferPosition()
-      expect( cursorPos ).toEqual( new Point(13,16) )
+        expect( cursorPos ).toEqual( new Point(13, 16) )
+        expect( insertedText ).toEqual('</div>')
 
-
-    it 'does not get confused in case of nested identical tags -- tag not closing', (done)->
-      @editor.setCursorBufferPosition(new Point(13,11))
-      @editorView.trigger('language-html:close-tag')
-
-      cursorPos = @editor.getCursorBufferPosition()
-      insertedText = @editor.getTextInRange( new Range([13,10], [13,16]) )
-
-      expect( cursorPos ).toEqual( new Point(13, 16) )
-      expect( insertedText ).toEqual('</div>')
-
-      @editorView.trigger('language-html:close-tag')
-      cursorPos = @editor.getCursorBufferPosition()
-      expect( cursorPos ).toEqual( new Point(13,16) )
-
-    # it 'does not get confused in case of nested identical tags -- tag not closing', ->
-    #   @editor.setCursorBufferPosition(new Point(13,11))
-    #   @editorView.trigger('language-html:close-tag')
-    #   @editorView.trigger('language-html:close-tag')
-    #
-    #   cursorPos = @editor.getCursorBufferPosition()
-    #   expect( cursorPos ).toEqual( new Point(13,16) )
+        editorView.trigger('language-html:close-tag')
+        cursorPos = editor.getCursorBufferPosition()
+        expect( cursorPos ).toEqual( new Point(13,16) )
