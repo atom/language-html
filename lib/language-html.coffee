@@ -43,31 +43,34 @@ module.exports =
   # fragment - a string containing a fragment of html code.
   #
   # Returns a string with the name of the most recent unclosed tag.
-  lastTagNotClosedInFragment: (fragment) ->
+  tagsNotClosedInFragment: (fragment) ->
     stack = []
     matchExpr = /<(\w+)|<\/(\w*)/
     stack = @parseFragment( fragment, stack, matchExpr, (x) -> true )
 
-    stack[ stack.length - 1 ]
+    stack
 
   # Parses the given fragment of html code and returns true if the given tag
   # has a matching closing tag in it. If tag is reopened and reclosed in the
   # given fragment then the end point of that pair does not count as a matching
   # closing tag.
-  tagDoesNotCloseInFragment: ( tag, fragment ) ->
-    stack = [tag]
+  tagDoesNotCloseInFragment: ( tags, fragment ) ->
+    stack = tags
+    stackLength = stack.length
+    tag = tags[tags.length-1]
     matchExpr = new RegExp( "<(" + tag + ")|<\/(" + tag + ")" )
-    stack = @parseFragment( fragment, stack, matchExpr, (s) -> s.length > 0 )
+    stack = @parseFragment( fragment, stack, matchExpr, (s) -> s.length >= stackLength )
 
-    stack.length > 0
+    stack.length >= stackLength
 
   # Parses preFragment and postFragment returning the last open tag in
   # preFragment that is not closed in postFragment.
   #
   # Returns a tag name or null if it can't find it.
   closingTagForFragments: (preFragment, postFragment) ->
-    tag = @lastTagNotClosedInFragment( preFragment )
-    if @tagDoesNotCloseInFragment( tag, postFragment )
+    tags = @tagsNotClosedInFragment( preFragment )
+    tag = tags[tags.length-1]
+    if @tagDoesNotCloseInFragment( tags, postFragment )
       return tag
     else
       return null
