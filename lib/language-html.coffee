@@ -59,9 +59,10 @@ module.exports =
     stackLength = stack.length
     tag = tags[tags.length-1]
     matchExpr = new RegExp( "<(" + tag + ")|<\/(" + tag + ")" )
-    stack = @parseFragment( fragment, stack, matchExpr, (s) -> s.length >= stackLength )
+    stack = @parseFragment( fragment, stack, matchExpr, (s) ->
+      s.length >= stackLength || s[s.length-1] == tag )
 
-    stack.length >= stackLength
+    stack.length > 0 && stack[stack.length-1] == tag
 
   # Parses preFragment and postFragment returning the last open tag in
   # preFragment that is not closed in postFragment.

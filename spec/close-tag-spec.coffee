@@ -73,7 +73,7 @@ describe 'language-html', ->
       atom.workspaceView.attachToDom();
       @editorView = atom.workspaceView.getActiveView();
       @editor = @editorView.getEditor()
-      atom.packages.activatePackage "language-html"
+      atom.packages.activatePackage("language-html")
 
     it 'closes the first non closed tag', ->
       @editor.setCursorBufferPosition(new Point(5,14))
@@ -95,3 +95,40 @@ describe 'language-html', ->
 
       expect( cursorPos ).toEqual( new Point(5, 22) )
       expect( insertedText ).toEqual('</p>')
+
+    it 'does not get confused in case of nested identical tags -- tag closing', ->
+      @editor.setCursorBufferPosition(new Point(13,11))
+      @editorView.trigger('language-html:close-tag')
+
+      cursorPos = @editor.getCursorBufferPosition()
+      insertedText = @editor.getTextInRange( new Range([13,10], [13,16]) )
+
+      expect( cursorPos ).toEqual( new Point(13, 16) )
+      expect( insertedText ).toEqual('</div>')
+
+      @editorView.trigger('language-html:close-tag')
+      cursorPos = @editor.getCursorBufferPosition()
+      expect( cursorPos ).toEqual( new Point(13,16) )
+
+
+    it 'does not get confused in case of nested identical tags -- tag not closing', (done)->
+      @editor.setCursorBufferPosition(new Point(13,11))
+      @editorView.trigger('language-html:close-tag')
+
+      cursorPos = @editor.getCursorBufferPosition()
+      insertedText = @editor.getTextInRange( new Range([13,10], [13,16]) )
+
+      expect( cursorPos ).toEqual( new Point(13, 16) )
+      expect( insertedText ).toEqual('</div>')
+
+      @editorView.trigger('language-html:close-tag')
+      cursorPos = @editor.getCursorBufferPosition()
+      expect( cursorPos ).toEqual( new Point(13,16) )
+
+    # it 'does not get confused in case of nested identical tags -- tag not closing', ->
+    #   @editor.setCursorBufferPosition(new Point(13,11))
+    #   @editorView.trigger('language-html:close-tag')
+    #   @editorView.trigger('language-html:close-tag')
+    #
+    #   cursorPos = @editor.getCursorBufferPosition()
+    #   expect( cursorPos ).toEqual( new Point(13,16) )
