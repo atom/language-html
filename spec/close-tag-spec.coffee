@@ -72,10 +72,14 @@ describe 'language-html', ->
       atom.project.setPath path.join(__dirname, 'fixtures')
       atom.workspaceView = new WorkspaceView();
       atom.workspace = atom.workspaceView.model
-      editor = atom.workspaceView.openSync('sample.html')
-      editorView = atom.workspaceView.getActiveView();
 
-      activationPromise = atom.packages.activatePackage("language-html")
+      waitsForPromise ->
+        atom.workspace.open('sample.html')
+
+      runs ->
+        editorView = atom.workspaceView.getActiveView()
+        editor = editorView.getEditor()
+        activationPromise = atom.packages.activatePackage("language-html")
 
     it 'closes the first non closed tag', ->
       editor.setCursorBufferPosition(new Point(5,14))
