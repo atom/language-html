@@ -6,6 +6,7 @@
   'tmpl'
   'tpl'
   'xhtml'
+  'jst'
 ]
 'firstLineMatch': '<(?i:(!DOCTYPE\\s*)?html)'
 'injections':
