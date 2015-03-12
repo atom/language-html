@@ -8,7 +8,6 @@
   'tpl'
   'xhtml'
 ]
-'firstLineMatch': '<(?i:(!DOCTYPE\\s*)?html)'
 'name': 'HTML'
 'patterns': [
   {
