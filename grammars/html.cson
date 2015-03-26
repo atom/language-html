@@ -7,6 +7,7 @@
   'tmpl'
   'tpl'
   'xhtml'
+  'svg'
 ]
 'name': 'HTML'
 'patterns': [
