@@ -28,6 +28,11 @@ describe 'HTML grammar', ->
       lines = grammar.tokenizeLines '<?'
       expect(lines[0][0]).toEqual value: '<?', scopes: ['text.html.basic']
 
+    it 'tokenizes ?><? without locking up', ->
+      lines = grammar.tokenizeLines '?><?'
+      expect(lines[0][0]).toEqual value: '?>', scopes: ['text.html.basic']
+      expect(lines[0][1]).toEqual value: '<?', scopes: ['text.html.basic', 'meta.scope.outside-tag.html']
+
     it 'tokenizes >< as html without locking up', ->
       lines = grammar.tokenizeLines '><'
       expect(lines[0][0]).toEqual value: '><', scopes: ['text.html.basic', 'meta.scope.outside-tag.html']

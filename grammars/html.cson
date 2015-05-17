@@ -336,16 +336,16 @@
     'name': 'invalid.illegal.incomplete.html'
   }
   {
-    'match': '><'
+    'match': '(?!\\?)><(?!\\?)'
     'name': 'meta.scope.outside-tag.html'
   }
   {
-    'match': '(?<=>)(<)'
+    'match': '(?<=>)(<(?!\\?))'
     'name': 'meta.scope.outside-tag.html'
   }
   {
     'begin': '(?<=>)'
-    'end': '(?=<)'
+    'end': '(?=<(?!\\?))'
     'name': 'meta.scope.outside-tag.html'
     'patterns': [
       {
