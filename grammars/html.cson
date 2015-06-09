@@ -7,8 +7,8 @@
   'tmpl'
   'tpl'
   'xhtml'
+  'svg'
 ]
-'firstLineMatch': '<(?i:(!DOCTYPE\\s*)?html)'
 'name': 'HTML'
 'patterns': [
   {
