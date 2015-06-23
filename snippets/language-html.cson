@@ -157,6 +157,9 @@
   'HTML':
     'prefix': 'html'
     'body': '<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<meta charset="utf-8">\n\t\t<title>$1</title>\n\t</head>\n\t<body>\n\t\t$2\n\t</body>\n</html>'
+  'HTML ja':
+     'prefix': 'htmlja'
+     'body': '<!DOCTYPE html>\n<html lang="ja">\n\t<head>\n\t\t<meta charset="utf-8">\n\t\t<title>$1</title>\n\t\t<meta name="keywords" content="$2">\n\t\t<meta name="description" content="$3">\n\t</head>\n\t<body>\n\t$4\n\t</body>\n</html>'
   # I
   'Italic':
     'prefix': 'i'
@@ -245,7 +248,7 @@
   # P
   'Paragraph':
     'prefix': 'p'
-    'body': '<p>\n\t$1\n</p>'
+    'body': '<p>$1</p>'
   'Parameter':
     'prefix': 'param'
     'body': '<param name="${1:foo}" value="${2:bar}">$0'
