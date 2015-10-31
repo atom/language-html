@@ -111,152 +111,125 @@
     'include': '#embedded-code'
   }
   {
-    'begin': '(?:^\\s+)?(<)((?i:style))\\b(?![^>]*/>)'
+    'begin': '(?:^\\s+)?(<)((?i)style)\\b(.*?)(>)'
     'captures':
       '1':
         'name': 'punctuation.definition.tag.html'
       '2':
         'name': 'entity.name.tag.style.html'
       '3':
-        'name': 'punctuation.definition.tag.html'
-    'end': '(</)((?i:style))(>)(?:\\s*\\n)?'
-    'name': 'source.css.embedded.html'
-    'patterns': [
-      {
-        'include': '#tag-stuff'
-      }
-      {
-        'begin': '(>)'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.tag.html'
-        'end': '(?=</(?i:style))'
         'patterns': [
           {
-            'include': '#embedded-code'
-          }
-          {
-            'include': 'source.css'
+            'include': '#tag-stuff'
           }
         ]
+      '4':
+        'name': 'punctuation.definition.tag.html'
+    'end': '(</)((?i)style)(>)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.html'
+      '2':
+        'name': 'entity.name.tag.style.html'
+      '3':
+        'name': 'punctuation.definition.tag.html'
+    'contentName': 'source.css.embedded.html'
+    'patterns': [
+      {
+        'include': '#embedded-code'
+      }
+      {
+        'include': 'source.css'
       }
     ]
   }
   {
-    'begin': '(?:^\\s+)?(<)((?i:script))\\b(?=[^>]*\\btype\\s*=\\s*[\'"]?text/(x-handlebars|(x-handlebars-)?template|html)[\'"]?)(?![^>]*/>)'
+    'begin': '(?:^\\s+)?(<)((?i)script)\\b(.*?\\btype\\s*=\\s*[\'"]?text/(?:x-handlebars|(?:x-handlebars-)?template|html)[\'"]?.*?)(>)'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.html'
       '2':
         'name': 'entity.name.tag.script.html'
-    'end': '(?<=</(script|SCRIPT))(>)(?:\\s*\\n)?'
+      '3':
+        'patterns': [
+          {
+            'include': '#tag-stuff'
+          }
+        ]
+      '4':
+        'name': 'punctuation.definition.tag.html'
+    'end': '(</)((?i)script)(>)'
     'endCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.html'
       '2':
+        'name': 'entity.name.tag.script.html'
+      '3':
         'name': 'punctuation.definition.tag.html'
     'contentName': 'text.embedded.html'
     'patterns': [
       {
-        'include': '#tag-stuff'
-      }
-      {
-        'begin': '(?<!</(?:script|SCRIPT))(>)'
-        'captures':
-          '1':
-            'name': 'punctuation.definition.tag.html'
-          '2':
-            'name': 'entity.name.tag.script.html'
-        'end': '(</)((?i:script))'
-        'patterns': [
-          {
-            'include': 'text.html.basic'
-          }
-        ]
+        'include': 'text.html.basic'
       }
     ]
   }
   {
-    'begin': '(?:^\\s+)?(<)((?i:script))\\b(?=[^>]*\\btype\\s*=\\s*[\'"]?text/coffeescript[\'"]?)(?![^>]*/>)'
+    'begin': '(?:^\\s+)?(<)((?i)script)\\b(.*?\\btype\\s*=\\s*[\'"]?text/coffeescript[\'"]?.*?)(>)'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.html'
       '2':
         'name': 'entity.name.tag.script.html'
-    'end': '(?<=</(script|SCRIPT))(>)(?:\\s*\\n)?'
+      '3':
+        'patterns': [
+          {
+            'include': '#tag-stuff'
+          }
+        ]
+      '4':
+        'name': 'punctuation.definition.tag.html'
+    'end': '(</)((?i)script)(>)'
     'endCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.html'
       '2':
+        'name': 'entity.name.tag.script.html'
+      '3':
         'name': 'punctuation.definition.tag.html'
     'contentName': 'source.coffee.embedded.html'
     'patterns': [
       {
-        'include': '#tag-stuff'
-      }
-      {
-        'begin': '(?<!</(?:script|SCRIPT))(>)'
-        'captures':
-          '1':
-            'name': 'punctuation.definition.tag.html'
-          '2':
-            'name': 'entity.name.tag.script.html'
-        'end': '(</)((?i:script))'
-        'patterns': [
-          {
-            'captures':
-              '1':
-                'name': 'punctuation.definition.comment.coffee'
-            'match': '(#).*?((?=</script)|$\\n?)'
-            'name': 'comment.line.number-sign.coffee'
-          }
-          {
-            'include': 'source.coffee'
-          }
-        ]
+        'include': 'source.coffee'
       }
     ]
   }
   {
-    'begin': '(?:^\\s+)?(<)((?i:script))\\b(?![^>]*/>)'
+    'begin': '(?:^\\s+)?(<)((?i)script)\\b(.*?)(>)'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.html'
       '2':
         'name': 'entity.name.tag.script.html'
-    'end': '(?<=</(script|SCRIPT))(>)(?:\\s*\\n)?'
+      '3':
+        'patterns': [
+          {
+            'include': '#tag-stuff'
+          }
+        ]
+      '4':
+        'name': 'punctuation.definition.tag.html'
+    'end': '(</)((?i)script)(>)'
     'endCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.html'
       '2':
+        'name': 'entity.name.tag.script.html'
+      '3':
         'name': 'punctuation.definition.tag.html'
     'contentName': 'source.js.embedded.html'
     'patterns': [
       {
-        'include': '#tag-stuff'
-      }
-      {
-        'begin': '(?<!</(?:script|SCRIPT))(>)'
-        'captures':
-          '1':
-            'name': 'punctuation.definition.tag.html'
-          '2':
-            'name': 'entity.name.tag.script.html'
-        'end': '(</)((?i:script))'
-        'patterns': [
-          {
-            'captures':
-              '1':
-                'name': 'punctuation.definition.comment.js'
-            'match': '(//).*?((?=</script)|$\\n?)'
-            'name': 'comment.line.double-slash.js'
-          }
-          {
-            'begin': '/\\*'
-            'captures':
-              '0':
-                'name': 'punctuation.definition.comment.js'
-            'end': '\\*/|(?=</script)'
-            'name': 'comment.block.js'
-          }
-          {
-            'include': 'source.js'
-          }
-        ]
+        'include': 'source.js'
       }
     ]
   }
