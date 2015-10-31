@@ -242,36 +242,7 @@
     'contentName': 'source.js.embedded.html'
     'patterns': [
       {
-        'include': '#tag-stuff'
-      }
-      {
-        'begin': '(?<!</(?:script|SCRIPT))(>)'
-        'captures':
-          '1':
-            'name': 'punctuation.definition.tag.html'
-          '2':
-            'name': 'entity.name.tag.script.html'
-        'end': '(</)((?i:script))'
-        'patterns': [
-          {
-            'captures':
-              '1':
-                'name': 'punctuation.definition.comment.js'
-            'match': '(//).*?((?=</script)|$\\n?)'
-            'name': 'comment.line.double-slash.js'
-          }
-          {
-            'begin': '/\\*'
-            'captures':
-              '0':
-                'name': 'punctuation.definition.comment.js'
-            'end': '\\*/|(?=</script)'
-            'name': 'comment.block.js'
-          }
-          {
-            'include': 'source.js'
-          }
-        ]
+        'include': 'source.js'
       }
     ]
   }
