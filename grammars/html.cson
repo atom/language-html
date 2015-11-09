@@ -14,12 +14,15 @@
 'patterns': [
   {
     'begin': '(<\\?)(xml)'
-    'captures':
+    'beginCaptures':
       '1':
-        'name': 'punctuation.definition.tag.html'
+        'name': 'punctuation.definition.tag.begin.html'
       '2':
         'name': 'entity.name.tag.xml.html'
     'end': '(\\?>)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.end.html'
     'name': 'meta.tag.preprocessor.xml.html'
     'patterns': [
       {
@@ -35,10 +38,13 @@
   }
   {
     'begin': '<!--'
-    'captures':
+    'beginCaptures':
       '0':
-        'name': 'punctuation.definition.comment.html'
+        'name': 'punctuation.definition.comment.begin.html'
     'end': '--\\s*>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.comment.end.html'
     'name': 'comment.block.html'
     'patterns': [
       {
@@ -52,10 +58,13 @@
   }
   {
     'begin': '<!'
-    'captures':
+    'beginCaptures':
       '0':
-        'name': 'punctuation.definition.tag.html'
+        'name': 'punctuation.definition.tag.begin.html'
     'end': '>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.tag.end.html'
     'name': 'meta.tag.sgml.html'
     'patterns': [
       {
