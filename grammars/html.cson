@@ -316,6 +316,10 @@
         'name': 'punctuation.definition.tag.end.html'
     'patterns': [
       {
+        'match': '</\\w+>' # <a><b></a></b> is invalid, it has to be <a><b></b></a>
+        'name': 'invalid.illegal.tag.html'
+      }
+      {
         'include': '$self'
       }
     ]
