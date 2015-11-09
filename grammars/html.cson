@@ -237,53 +237,113 @@
     ]
   }
   {
-    'begin': '(</?)((?i:body|head|html)\\b)'
-    'captures':
+    'begin': '(<)((?i)body|head|html)\\b(.*?)(>)'
+    'beginCaptures':
+      '0':
+        'name': 'meta.tag.structure.any.html'
       '1':
-        'name': 'punctuation.definition.tag.html'
+        'name': 'punctuation.definition.tag.begin.html'
       '2':
         'name': 'entity.name.tag.structure.any.html'
-    'end': '(>)'
-    'name': 'meta.tag.structure.any.html'
+      '3':
+        'patterns': [
+          {
+            'include': '#tag-stuff'
+          }
+        ]
+      '4':
+        'name': 'punctuation.definition.tag.end.html'
+    'end': '(</)(\\2)(>)'
+    'endCaptures':
+      '0':
+        'name': 'meta.tag.structure.any.html'
+      '1':
+        'name': 'punctuation.definition.tag.begin.html'
+      '2':
+        'name': 'entity.name.tag.structure.any.html'
+      '3':
+        'name': 'punctuation.definition.tag.end.html'
     'patterns': [
       {
-        'include': '#tag-stuff'
+        'match': '</\\w+>' # <a><b></a></b> is invalid, it has to be <a><b></b></a>
+        'name': 'invalid.illegal.tag.html'
+      }
+      {
+        'include': '$self'
       }
     ]
   }
   {
-    'begin': '(</?)((?i:address|blockquote|dd|div|section|article|aside|header|footer|nav|menu|dl|dt|fieldset|form|frame|frameset|h1|h2|h3|h4|h5|h6|iframe|noframes|object|ol|p|ul|applet|center|dir|hr|pre)\\b)'
+    'begin': '(<)((?i)address|blockquote|dd|div|section|article|aside|header|footer|nav|menu|dl|dt|fieldset|form|frame|frameset|h1|h2|h3|h4|h5|h6|iframe|noframes|object|ol|p|ul|applet|center|dir|hr|pre)\\b(.*?)(>)'
     'beginCaptures':
+      '0':
+        'name': 'meta.tag.block.any.html'
       '1':
         'name': 'punctuation.definition.tag.begin.html'
       '2':
         'name': 'entity.name.tag.block.any.html'
-    'end': '(>)'
-    'endCaptures':
-      '1':
+      '3':
+        'patterns': [
+          {
+            'include': '#tag-stuff'
+          }
+        ]
+      '4':
         'name': 'punctuation.definition.tag.end.html'
-    'name': 'meta.tag.block.any.html'
+    'end': '(</)(\\2)(>)'
+    'endCaptures':
+      '0':
+        'name': 'meta.tag.block.any.html'
+      '1':
+        'name': 'punctuation.definition.tag.begin.html'
+      '2':
+        'name': 'entity.name.tag.block.any.html'
+      '3':
+        'name': 'punctuation.definition.tag.end.html'
     'patterns': [
       {
-        'include': '#tag-stuff'
+        'match': '</\\w+>' # <a><b></a></b> is invalid, it has to be <a><b></b></a>
+        'name': 'invalid.illegal.tag.html'
+      }
+      {
+        'include': '$self'
       }
     ]
   }
   {
-    'begin': '(</?)((?i:a|abbr|acronym|area|b|base|basefont|bdo|big|br|button|caption|cite|code|col|colgroup|del|dfn|em|font|head|html|i|img|input|ins|isindex|kbd|label|legend|li|link|map|meta|noscript|optgroup|option|param|q|s|samp|script|select|small|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfoot|th|thead|title|tr|tt|u|var)\\b)'
+    'begin': '(<)((?i)a|abbr|acronym|area|b|base|basefont|bdo|big|br|button|caption|cite|code|col|colgroup|del|dfn|em|font|head|html|i|img|input|ins|isindex|kbd|label|legend|li|link|map|meta|noscript|optgroup|option|param|q|s|samp|script|select|small|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfoot|th|thead|title|tr|tt|u|var)\\b(.*?)(>)'
     'beginCaptures':
+      '0':
+        'name': 'meta.tag.inline.any.html'
       '1':
         'name': 'punctuation.definition.tag.begin.html'
       '2':
         'name': 'entity.name.tag.inline.any.html'
-    'end': '((?: ?/)?>)'
-    'endCaptures':
-      '1':
+      '3':
+        'patterns': [
+          {
+            'include': '#tag-stuff'
+          }
+        ]
+      '4':
         'name': 'punctuation.definition.tag.end.html'
-    'name': 'meta.tag.inline.any.html'
+    'end': '(</)(\\2)(>)'
+    'endCaptures':
+      '0':
+        'name': 'meta.tag.inline.any.html'
+      '1':
+        'name': 'punctuation.definition.tag.begin.html'
+      '2':
+        'name': 'entity.name.tag.inline.any.html'
+      '3':
+        'name': 'punctuation.definition.tag.end.html'
     'patterns': [
       {
-        'include': '#tag-stuff'
+        'match': '</\\w+>' # <a><b></a></b> is invalid, it has to be <a><b></b></a>
+        'name': 'invalid.illegal.tag.html'
+      }
+      {
+        'include': '$self'
       }
     ]
   }
