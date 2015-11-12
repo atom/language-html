@@ -432,7 +432,7 @@
       }
     ]
   'tag-generic-attribute':
-    'begin': '\\b([a-zA-Z0-9:-]+)\\s*(=)'
+    'begin': '\\b([a-zA-Z0-9:\\-_]+)\\s*(=)'
     'beginCaptures':
       '1':
         'name': 'entity.other.attribute-name.any.html'
