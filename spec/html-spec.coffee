@@ -79,6 +79,26 @@ describe 'HTML grammar', ->
       expect(lines[1][0]).toEqual value: '  ', scopes: ['text.html.basic', 'source.js.embedded.html']
       expect(lines[1][1]).toEqual value: 'var', scopes: ['text.html.basic', 'source.js.embedded.html', 'storage.modifier.js']
 
+  describe "attributes", ->
+    it "tokenizes them", ->
+      {tokens} = grammar.tokenizeLine '<randomtag q="hello" b=true id="no"></randomtag>'
+
+      expect(tokens[2]).toEqual value: ' ', scopes: ['text.html.basic', 'meta.tag.any.html']
+      expect(tokens[3]).toEqual value: 'q', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.html', 'entity.other.attribute-name.html']
+      expect(tokens[4]).toEqual value: '=', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.html', 'punctuation.separator.key-value.html']
+      expect(tokens[5]).toEqual value: '"', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.html', 'string.quoted.double.html', 'punctuation.definition.string.begin.html']
+      expect(tokens[6]).toEqual value: 'hello', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.html', 'string.quoted.double.html']
+      expect(tokens[7]).toEqual value: '"', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.html', 'string.quoted.double.html', 'punctuation.definition.string.end.html']
+      expect(tokens[9]).toEqual value: 'b', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.html', 'entity.other.attribute-name.html']
+      expect(tokens[10]).toEqual value: '=', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.html', 'punctuation.separator.key-value.html']
+      expect(tokens[11]).toEqual value: 'true', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.html', 'string.unquoted.html']
+      expect(tokens[13]).toEqual value: 'id', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.id.html', 'entity.other.attribute-name.id.html']
+      expect(tokens[14]).toEqual value: '=', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.id.html', 'punctuation.separator.key-value.html']
+      expect(tokens[15]).toEqual value: '"', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.id.html', 'string.quoted.double.html', 'punctuation.definition.string.begin.html']
+      expect(tokens[16]).toEqual value: 'no', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.id.html', 'string.quoted.double.html', 'meta.toc-list.id.html']
+      expect(tokens[17]).toEqual value: '"', scopes: ['text.html.basic', 'meta.tag.any.html', 'meta.attribute-with-value.id.html', 'string.quoted.double.html', 'punctuation.definition.string.end.html']
+      expect(tokens[18]).toEqual value: '>', scopes: ['text.html.basic', 'meta.tag.any.html', 'punctuation.definition.tag.html']
+
   describe "comments", ->
     it "tokenizes -- as an error", ->
       {tokens} = grammar.tokenizeLine '<!-- some comment --->'
