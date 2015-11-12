@@ -432,8 +432,25 @@
       }
     ]
   'tag-generic-attribute':
-    'match': '(?<=[^=])\\b([a-zA-Z0-9:-]+)'
-    'name': 'entity.other.attribute-name.html'
+    'begin': '\\b([a-zA-Z0-9:-]+)\\s*(=)'
+    'beginCaptures':
+      '1':
+        'name': 'entity.other.attribute-name.any.html'
+      '2':
+        'name': 'punctuation.separator.key-value.html'
+    'end': '(?<=\'|")|(?=\\s|>)'
+    'name': 'meta.attribute-with-value.html'
+    'patterns': [
+      {
+        'include': '#string-double-quoted'
+      }
+      {
+        'include': '#string-single-quoted'
+      }
+      {
+        'include': '#unquoted-attribute'
+      }
+    ]
   'tag-id-attribute':
     'begin': '\\b(id)\\b\\s*(=)'
     'captures':
