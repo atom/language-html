@@ -8,6 +8,8 @@
   'tmpl'
   'tpl'
   'xhtml'
+  'markdown'
+  'md'
 ]
 'firstLineMatch': '<(?i:(!DOCTYPE\\s*)?html)'
 'name': 'HTML'
