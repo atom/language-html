@@ -8,19 +8,19 @@
     'body': '<abbr title="$1">$2</abbr>$0'
   'Address':
     'prefix': 'address'
-    'body': '<address ${1:class="$2"}>\n\t$3\n</address>'
+    'body': '<address>\n\t$1\n</address>'
   'Area':
     'prefix': 'area'
-    'body': '<area ${1:shape="${2:default}"} coords="$3" ${4:href="${5:#}"} />$0'
+    'body': '<area ${1:shape="${2:default}"} coords="$3" ${4:href="${5:#}"}>$0'
   'Article':
     'prefix': 'article'
-    'body': '<article class="$1">\n\t$2\n</article>'
+    'body': '<article${1: class="$2"}>\n\t$3\n</article>'
   'Aside':
     'prefix': 'aside'
-    'body': '<aside class="$1">\n\t$2\n</aside>'
+    'body': '<aside${1: class="$2"}>\n\t$3\n</aside>'
   'Audio':
     'prefix': 'audio'
-    'body': '<audio src="$1">\n\t$2\n</audio>'
+    'body': '<audio src="$1">$2</audio>'
   # B
   'Body':
     'prefix': 'body'
@@ -30,7 +30,7 @@
     'body': '<b>$1</b>$0'
   'Base':
     'prefix': 'base'
-    'body': '<base href="${1:#}" target="${2:_blank}" />$0'
+    'body': '<base href="${1:#}" target="${2:_blank}">$0'
   'Bi-Directional Isolation':
     'prefix': 'bdi'
     'body': '<bdi dir="${1:auto}">$2</bdi>$0'
@@ -80,7 +80,7 @@
     'body': '<data value="$1">$2</data>$0'
   'Data List':
     'prefix': 'datalist'
-    'body': '<datalist class="$1">\n\t$2\n</datalist>'
+    'body': '<datalist${1: class="$2"}>\n\t$2\n</datalist>'
   'Description':
     'prefix': 'dd'
     'body': '<dd>$1</dd>$0'
@@ -95,13 +95,13 @@
     'body': '<dfn>$1</dfn>$0'
   'Description List':
     'prefix': 'dl'
-    'body': '<dl class="$1">\n\t$2\n</dl>'
+    'body': '<dl${1: class="$2"}>\n\t$2\n</dl>'
   'Definition Term':
     'prefix': 'dt'
     'body': '<dt>$1</dt>$0'
   'Div':
     'prefix': 'div'
-    'body': '<div class="$2">\n\t$3\n</div>'
+    'body': '<div${1: class="$2"}>\n\t$3\n</div>'
   # E
   'Emphasis':
     'prefix': 'em'
@@ -169,10 +169,10 @@
     'body': '<iframe src="$1" width="$2" height="$3">$4</iframe>$0'
   'Input':
     'prefix': 'input'
-    'body': '<input type="${1:button}" name="${2:name}" value="$3">$0'
+    'body': '<input type="${1:text}" value="$2">$0'
   'Image':
     'prefix': 'img'
-    'body': '<img src="$1" alt="$2" />$0'
+    'body': '<img src="$1" alt="$2">$0'
   'Import':
     'prefix': 'import'
     'body': '<link rel="import" href="$1">$0'
@@ -199,7 +199,7 @@
     'body': '<li>$1</li>$0'
   'Link':
     'prefix': 'link'
-    'body': '<link rel="${1:stylesheet}" href="${2:/css/master.css}" media="${3:screen}" title="${4:no title}" charset="${5:utf-8}">$0'
+    'body': '<link rel="${1:stylesheet}" href="${2:css/style.css}">$0'
   # M
   'Main':
     'prefix': 'main'
@@ -251,13 +251,13 @@
   # P
   'Paragraph':
     'prefix': 'p'
-    'body': '<p>\n\t$1\n</p>'
+    'body': '<p>$1</p>'
   'Parameter':
     'prefix': 'param'
     'body': '<param name="${1:foo}" value="${2:bar}">$0'
   'Preformatted Text':
     'prefix': 'pre'
-    'body': '<pre>\n\t$1\n</pre>'
+    'body': '<pre>$1</pre>'
   'Progress':
     'prefix': 'progress'
     'body': '<progress value="${1:50}" max="${2:100}">${3:50%}</progress>$0'
@@ -290,16 +290,13 @@
     'body': '<samp>$1</samp>$0'
   'Script':
     'prefix': 'script'
-    'body': '<script${1: type="${2:text/javascript}"}>\n\t$3\n</script>'
-  'Script With External Source':
-    'prefix': 'scriptsrc'
-    'body': '<script src="$1" charset="${2:utf-8}"></script>$0'
+    'body': '<script${1: src="$2"}>$3</script>$0'
   'Section':
     'prefix': 'section'
     'body': '<section>\n\t$1\n</section>'
   'Select':
     'prefix': 'select'
-    'body': '<select class="$1" name="$2">\n\t$3\n</select>'
+    'body': '<select>\n\t$1\n</select>'
   'Small':
     'prefix': 'small'
     'body': '<small>$1</small>$0'
@@ -314,7 +311,7 @@
     'body': '<strong>$1</strong>$0'
   'Style':
     'prefix': 'style'
-    'body': '<style media="screen">\n\t$1\n</style>'
+    'body': '<style>\n\t$1\n</style>'
   'Subscript':
     'prefix': 'sub'
     'body': '<sub>$1</sub>$0'
@@ -333,7 +330,7 @@
     'body': '<tbody>\n\t$1\n</tbody>'
   'Table Cell':
     'prefix': 'td'
-    'body': '<td>\n\t$1\n</td>'
+    'body': '<td>$1</td>'
   'Template':
     'prefix': 'template'
     'body': '<template id="$1">\n\t$2\n</template>'
@@ -345,7 +342,7 @@
     'body': '<tfoot>\n\t$1\n</tfoot>'
   'Table Header Cell':
     'prefix': 'th'
-    'body': '<th>\n\t$1\n</th>'
+    'body': '<th>$1</th>'
   'Table Head':
     'prefix': 'thead'
     'body': '<thead>\n\t$1\n</thead>'
@@ -374,7 +371,7 @@
     'body': '<var>$1</var>$0'
   'Video':
     'prefix': 'video'
-    'body': '<video src="${1:videofile.ogg}" ${2:autoplay} ${3:poster="${4:posterimage.jpg}"}>\n\t$5\n</video>'
+    'body': '<video src="$1" ${2:autoplay} ${3:poster="${4:poster.png}"}>$5</video>'
   # W
   'Word Break Opportunity':
     'prefix': 'wbr'
