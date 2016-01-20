@@ -80,7 +80,7 @@
     'body': '<data value="$1">$2</data>$0'
   'Data List':
     'prefix': 'datalist'
-    'body': '<datalist${1: class="$2"}>\n\t$2\n</datalist>'
+    'body': '<datalist${1: class="$2"}>\n\t$3\n</datalist>'
   'Description':
     'prefix': 'dd'
     'body': '<dd>$1</dd>$0'
@@ -95,7 +95,7 @@
     'body': '<dfn>$1</dfn>$0'
   'Description List':
     'prefix': 'dl'
-    'body': '<dl${1: class="$2"}>\n\t$2\n</dl>'
+    'body': '<dl${1: class="$2"}>\n\t$3\n</dl>'
   'Definition Term':
     'prefix': 'dt'
     'body': '<dt>$1</dt>$0'
