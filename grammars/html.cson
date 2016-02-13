@@ -13,37 +13,16 @@
 'name': 'HTML'
 'patterns': [
   {
-    'begin': '(<)([a-zA-Z0-9:-]++)(?=[^>]*></\\2>)'
+    'begin': '(<\\?)(xml)'
     'beginCaptures':
       '1':
-        'name': 'punctuation.definition.tag.html'
-      '2':
-        'name': 'entity.name.tag.html'
-    'end': '(>(\\s*<)/)(\\2)(>)'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.tag.html'
-      '2':
-        'name': 'meta.scope.between-tag-pair.html'
-      '3':
-        'name': 'entity.name.tag.html'
-      '4':
-        'name': 'punctuation.definition.tag.html'
-    'name': 'meta.tag.any.html'
-    'patterns': [
-      {
-        'include': '#tag-stuff'
-      }
-    ]
-  }
-  {
-    'begin': '(<\\?)(xml)'
-    'captures':
-      '1':
-        'name': 'punctuation.definition.tag.html'
+        'name': 'punctuation.definition.tag.begin.html'
       '2':
         'name': 'entity.name.tag.xml.html'
     'end': '(\\?>)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.end.html'
     'name': 'meta.tag.preprocessor.xml.html'
     'patterns': [
       {
@@ -59,10 +38,13 @@
   }
   {
     'begin': '<!--'
-    'captures':
+    'beginCaptures':
       '0':
-        'name': 'punctuation.definition.comment.html'
+        'name': 'punctuation.definition.comment.begin.html'
     'end': '--\\s*>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.comment.end.html'
     'name': 'comment.block.html'
     'patterns': [
       {
@@ -76,10 +58,13 @@
   }
   {
     'begin': '<!'
-    'captures':
+    'beginCaptures':
       '0':
-        'name': 'punctuation.definition.tag.html'
+        'name': 'punctuation.definition.tag.begin.html'
     'end': '>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.tag.end.html'
     'name': 'meta.tag.sgml.html'
     'patterns': [
       {
@@ -261,13 +246,16 @@
     ]
   }
   {
-    'begin': '(</?)((?i:body|head|html)\\b)'
-    'captures':
+    'begin': '(</?)((?i)body|head|html)\\b' # These don't strictly require a closing tag
+    'beginCaptures':
       '1':
-        'name': 'punctuation.definition.tag.html'
+        'name': 'punctuation.definition.tag.begin.html'
       '2':
         'name': 'entity.name.tag.structure.any.html'
     'end': '(>)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.begin.html'
     'name': 'meta.tag.structure.any.html'
     'patterns': [
       {
@@ -276,7 +264,7 @@
     ]
   }
   {
-    'begin': '(</?)((?i:address|blockquote|dd|div|section|article|aside|header|footer|nav|menu|dl|dt|fieldset|form|frame|frameset|h1|h2|h3|h4|h5|h6|iframe|noframes|object|ol|p|ul|applet|center|dir|hr|pre)\\b)'
+    'begin': '(</?)((?i)dd|dt|p)\\b' # These don't strictly require a closing tag
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.begin.html'
@@ -294,17 +282,52 @@
     ]
   }
   {
-    'begin': '(</?)((?i:a|abbr|acronym|area|b|base|basefont|bdo|big|br|button|caption|cite|code|col|colgroup|del|dfn|em|font|head|html|i|img|input|ins|isindex|kbd|label|legend|li|link|map|meta|noscript|optgroup|option|param|q|s|samp|script|select|small|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfoot|th|thead|title|tr|tt|u|var)\\b)'
+    'begin': '(<)((?i)address|blockquote|div|section|article|aside|header|footer|nav|menu|dl|fieldset|form|frame|frameset|h1|h2|h3|h4|h5|h6|iframe|noframes|object|ol|ul|applet|center|dir|pre)\\b(.*?)(>)'
+    'beginCaptures':
+      '0':
+        'name': 'meta.tag.block.any.html'
+      '1':
+        'name': 'punctuation.definition.tag.begin.html'
+      '2':
+        'name': 'entity.name.tag.block.any.html'
+      '3':
+        'patterns': [
+          {
+            'include': '#tag-stuff'
+          }
+        ]
+      '4':
+        'name': 'punctuation.definition.tag.end.html'
+    'end': '(</)(\\2)(>)'
+    'endCaptures':
+      '0':
+        'name': 'meta.tag.block.any.html'
+      '1':
+        'name': 'punctuation.definition.tag.begin.html'
+      '2':
+        'name': 'entity.name.tag.block.any.html'
+      '3':
+        'name': 'punctuation.definition.tag.end.html'
+    'patterns': [
+      {
+        'include': '#out-of-order-tags'
+      }
+      {
+        'include': '$self'
+      }
+    ]
+  }
+  {
+    'begin': '(</?)((?i)colgroup|li|optgroup|option|tbody|td|tfoot|th|thead|tr)\\b' # These don't strictly require a closing tag
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.begin.html'
       '2':
         'name': 'entity.name.tag.inline.any.html'
-    'end': '((?: ?/)?>)'
+    'end': '(>)'
     'endCaptures':
       '1':
         'name': 'punctuation.definition.tag.end.html'
-    'name': 'meta.tag.inline.any.html'
     'patterns': [
       {
         'include': '#tag-stuff'
@@ -312,20 +335,92 @@
     ]
   }
   {
-    'begin': '(</?)([a-zA-Z0-9:-]+)'
+    'begin': '(<)((?i)a|abbr|acronym|b|basefont|bdo|big|button|caption|cite|code|del|dfn|em|font|head|html|i|input|ins|isindex|kbd|label|legend|map|noscript|q|s|samp|script|select|small|span|strike|strong|style|sub|sup|table|textarea|title|tt|u|var)\\b(.*?)(>)'
+    'beginCaptures':
+      '0':
+        'name': 'meta.tag.inline.any.html'
+      '1':
+        'name': 'punctuation.definition.tag.begin.html'
+      '2':
+        'name': 'entity.name.tag.inline.any.html'
+      '3':
+        'patterns': [
+          {
+            'include': '#tag-stuff'
+          }
+        ]
+      '4':
+        'name': 'punctuation.definition.tag.end.html'
+    'end': '(</)(\\2)(>)'
+    'endCaptures':
+      '0':
+        'name': 'meta.tag.inline.any.html'
+      '1':
+        'name': 'punctuation.definition.tag.begin.html'
+      '2':
+        'name': 'entity.name.tag.inline.any.html'
+      '3':
+        'name': 'punctuation.definition.tag.end.html'
+    'patterns': [
+      {
+        'include': '#out-of-order-tags'
+      }
+      {
+        'include': '$self'
+      }
+    ]
+  }
+  {
+    'begin': '(<)((?i)area|base|br|col|command|embed|hr|img|input|link|meta|param|source)\\b'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.begin.html'
       '2':
-        'name': 'entity.name.tag.other.html'
-    'end': '(>)'
+        'name': 'entity.name.tag.singleton.any.html'
+    'end': '(/?>)' # > (recommended) or />
     'endCaptures':
       '1':
         'name': 'punctuation.definition.tag.end.html'
-    'name': 'meta.tag.other.html'
+    'name': 'meta.tag.singleton.any.html'
     'patterns': [
       {
         'include': '#tag-stuff'
+      }
+    ]
+  }
+  {
+    'begin': '(<)([a-zA-Z0-9:-]+)(.*?)(>)'
+    'beginCaptures':
+      '0':
+        'name': 'meta.tag.other.html'
+      '1':
+        'name': 'punctuation.definition.tag.begin.html'
+      '2':
+        'name': 'entity.name.tag.other.html'
+      '3':
+        'patterns': [
+          {
+            'include': '#tag-stuff'
+          }
+        ]
+      '4':
+        'name': 'punctuation.definition.tag.end.html'
+    'end': '(</)(\\2)(>)'
+    'endCaptures':
+      '0':
+        'name': 'meta.tag.other.html'
+      '1':
+        'name': 'punctuation.definition.tag.begin.html'
+      '2':
+        'name': 'entity.name.tag.other.html'
+      '3':
+        'name': 'punctuation.definition.tag.end.html'
+    'patterns': [
+      {
+        'include': '#out-of-order-tags'
+      }
+      {
+        'include': '$self'
       }
     ]
   }
@@ -361,6 +456,14 @@
       {
         'match': '&'
         'name': 'invalid.illegal.bad-ampersand.html'
+      }
+    ]
+  'out-of-order-tags':
+    'patterns': [
+      {
+        # <a><b></a></b> is invalid, it has to be <a><b></b></a>
+        'match': '</(?!area|base|br|col|colgroup|command|dd|dt|embed|hr|img|input|li|link|meta|optgroup|option|p|param|source|tbody|td|tfoot|th|thead|tr)\\w+>'
+        'name': 'invalid.illegal.out-of-order-tag.html'
       }
     ]
   'python':
