@@ -124,7 +124,7 @@
     'include': '#embedded-code'
   }
   {
-    'begin': '(?:^\\s+)?(<)((?i)style)\\b(.*?)(>)'
+    'begin': '(?:^\\s+)?(<)((?i)style)\\b(.*?)(/?>)' # Match an optional /> here because <style/> is allowed
     'captures':
       '1':
         'name': 'punctuation.definition.tag.html'
@@ -138,7 +138,7 @@
         ]
       '4':
         'name': 'punctuation.definition.tag.html'
-    'end': '(</)((?i)style)(>)'
+    'end': '(?<=/>)|(</)((?i)style)(>)'
     'endCaptures':
       '1':
         'name': 'punctuation.definition.tag.html'
