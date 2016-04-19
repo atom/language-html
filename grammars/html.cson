@@ -111,7 +111,7 @@
     'include': '#embedded-code'
   }
   {
-    'begin': '(?:^\\s+)?(<)((?i)style)\\b(.*?)(>)'
+    'begin': '(?:^\\s+)?(<)((?i)style)\\b(.*?)(/?>)' # Match an optional /> here because <style/> is allowed
     'captures':
       '1':
         'name': 'punctuation.definition.tag.html'
@@ -125,7 +125,7 @@
         ]
       '4':
         'name': 'punctuation.definition.tag.html'
-    'end': '(</)((?i)style)(>)'
+    'end': '(?<=/>)|(</)((?i)style)(>)'
     'endCaptures':
       '1':
         'name': 'punctuation.definition.tag.html'
@@ -144,7 +144,7 @@
     ]
   }
   {
-    'begin': '(?:^\\s+)?(<)((?i)script)\\b(.*?\\btype\\s*=\\s*[\'"]?text/(?:x-handlebars|(x-handlebars-|ng-)?template|html)[\'"]?.*?)(>)'
+    'begin': '(?:^\\s+)?(<)((?i)script)\\b(.*?\\btype\\s*=\\s*[\'"]?text/(?:x-handlebars|(?:x-handlebars-|ng-)?template|html)[\'"]?.*?)(>)'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.html'
