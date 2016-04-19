@@ -1,3 +1,6 @@
+path = require 'path'
+grammarTest = require 'atom-grammar-test'
+
 describe 'HTML grammar', ->
   grammar = null
 
@@ -101,7 +104,7 @@ describe 'HTML grammar', ->
       expect(lines[0][0]).toEqual value: '<', scopes: ['text.html.basic', 'punctuation.definition.tag.html']
 
       expect(lines[1][0]).toEqual value: '  ', scopes: ['text.html.basic', 'source.js.embedded.html']
-      expect(lines[1][1]).toEqual value: 'var', scopes: ['text.html.basic', 'source.js.embedded.html', 'storage.modifier.js']
+      expect(lines[1][1]).toEqual value: 'var', scopes: ['text.html.basic', 'source.js.embedded.html', 'storage.type.var.js']
 
   describe "comments", ->
     it "tokenizes -- as an error", ->
@@ -118,3 +121,6 @@ describe 'HTML grammar', ->
       expect(tokens[2]).toEqual value: '--', scopes: ['text.html.basic', 'comment.block.html', 'invalid.illegal.bad-comments-or-CDATA.html']
       expect(tokens[3]).toEqual value: ' ', scopes: ['text.html.basic', 'comment.block.html']
       expect(tokens[4]).toEqual value: '-->', scopes: ['text.html.basic', 'comment.block.html', 'punctuation.definition.comment.html']
+
+  grammarTest path.join(__dirname, 'fixtures/syntax_test_html.html')
+  grammarTest path.join(__dirname, 'fixtures/syntax_test_html_template_fragments.html')
