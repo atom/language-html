@@ -8,9 +8,6 @@ describe 'HTML grammar package', ->
     waitsForPromise ->
       atom.packages.activatePackage('language-html')
 
-    waitsForPromise ->
-      atom.packages.activatePackage('language-coffee-script')
-
     runs ->
       grammar = atom.grammars.grammarForScopeName('text.html.basic')
 
@@ -56,6 +53,10 @@ describe 'HTML grammar package', ->
         expect(lines[1][1]).toEqual value: '<', scopes: ['text.html.basic', 'text.embedded.html', 'meta.tag.block.any.html', 'punctuation.definition.tag.begin.html']
 
     describe 'when type attribute is set to text/coffeescript', ->
+      beforeEach ->
+        waitsForPromise ->
+          atom.packages.activatePackage('language-coffee-script')
+
       it 'tokenizes the content as CoffeeScript', ->
         lines = grammar.tokenizeLines '''
           <script id='id' type='text/coffeescript'>
