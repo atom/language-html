@@ -120,7 +120,7 @@
       '3':
         'name': 'punctuation.definition.tag.html'
     'end': '(</)((?i:style))(>)(?:\\s*\\n)?'
-    'name': 'source.css.embedded.html'
+    'contentName': 'source.css.embedded.html'
     'patterns': [
       {
         'include': '#tag-stuff'
