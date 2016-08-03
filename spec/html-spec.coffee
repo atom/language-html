@@ -1,7 +1,7 @@
 path = require 'path'
 grammarTest = require 'atom-grammar-test'
 
-describe 'HTML grammar', ->
+describe 'HTML grammar package', ->
   grammar = null
 
   beforeEach ->
@@ -18,72 +18,73 @@ describe 'HTML grammar', ->
     expect(grammar).toBeTruthy()
     expect(grammar.scopeName).toBe 'text.html.basic'
 
-  describe 'meta.scope.outside-tag scope', ->
+  describe 'outside-tag stuff', ->
     it 'tokenizes an empty file', ->
       lines = grammar.tokenizeLines ''
       expect(lines[0][0]).toEqual value: '', scopes: ['text.html.basic']
 
-    it 'tokenizes a single < as without freezing', ->
+    it 'tokenizes a standalone < without freezing', ->
       lines = grammar.tokenizeLines '<'
       expect(lines[0][0]).toEqual value: '<', scopes: ['text.html.basic']
 
       lines = grammar.tokenizeLines ' <'
       expect(lines[0][0]).toEqual value: ' <', scopes: ['text.html.basic']
 
-    it 'tokenizes <? without locking up', ->
+    it 'tokenizes <? without freezing', ->
       lines = grammar.tokenizeLines '<?'
       expect(lines[0][0]).toEqual value: '<?', scopes: ['text.html.basic']
 
-    it 'tokenizes >< as html without locking up', ->
+    it 'tokenizes >< without freezing', ->
       lines = grammar.tokenizeLines '><'
       expect(lines[0][0]).toEqual value: '><', scopes: ['text.html.basic']
 
-    it 'tokenizes < after tags without locking up', ->
+    it 'tokenizes a standalone < right after tags without freezing', ->
       lines = grammar.tokenizeLines '<span><'
       expect(lines[0][3]).toEqual value: '<', scopes: ['text.html.basic']
 
-  describe 'template script tags', ->
-    it 'tokenizes the content inside the tag as HTML', ->
-      lines = grammar.tokenizeLines '''
-        <script id='id' type='text/template'>
-          <div>test</div>
-        </script>
-      '''
+  describe '<script>', ->
+    describe 'when type attribute is set to text/template', ->
+      it 'tokenizes the content as HTML', ->
+        lines = grammar.tokenizeLines '''
+          <script id='id' type='text/template'>
+            <div>test</div>
+          </script>
+        '''
 
-      expect(lines[0][0]).toEqual value: '<', scopes: ['text.html.basic', 'punctuation.definition.tag.html']
-      expect(lines[1][0]).toEqual value: '  ', scopes: ['text.html.basic', 'text.embedded.html']
-      expect(lines[1][1]).toEqual value: '<', scopes: ['text.html.basic', 'text.embedded.html', 'meta.tag.block.any.html', 'punctuation.definition.tag.begin.html']
+        expect(lines[0][0]).toEqual value: '<', scopes: ['text.html.basic', 'punctuation.definition.tag.html']
+        expect(lines[1][0]).toEqual value: '  ', scopes: ['text.html.basic', 'text.embedded.html']
+        expect(lines[1][1]).toEqual value: '<', scopes: ['text.html.basic', 'text.embedded.html', 'meta.tag.block.any.html', 'punctuation.definition.tag.begin.html']
 
-  describe 'CoffeeScript script tags', ->
-    it 'tokenizes the content inside the tag as CoffeeScript', ->
-      lines = grammar.tokenizeLines '''
-        <script id='id' type='text/coffeescript'>
-          -> console.log 'hi'
-        </script>
-      '''
+    describe 'when type attribute is set to text/coffeescript', ->
+      it 'tokenizes the content as CoffeeScript', ->
+        lines = grammar.tokenizeLines '''
+          <script id='id' type='text/coffeescript'>
+            -> console.log 'hi'
+          </script>
+        '''
 
-      expect(lines[0][0]).toEqual value: '<', scopes: ['text.html.basic', 'punctuation.definition.tag.html']
-      expect(lines[1][0]).toEqual value: '  ', scopes: ['text.html.basic', 'source.coffee.embedded.html']
-      expect(lines[1][1]).toEqual value: '->', scopes: ['text.html.basic', 'source.coffee.embedded.html', 'storage.type.function.coffee']
+        expect(lines[0][0]).toEqual value: '<', scopes: ['text.html.basic', 'punctuation.definition.tag.html']
+        expect(lines[1][0]).toEqual value: '  ', scopes: ['text.html.basic', 'source.coffee.embedded.html']
+        expect(lines[1][1]).toEqual value: '->', scopes: ['text.html.basic', 'source.coffee.embedded.html', 'storage.type.function.coffee']
 
-  describe 'JavaScript script tags', ->
-    beforeEach ->
-      waitsForPromise -> atom.packages.activatePackage('language-javascript')
+    describe 'when type attribute is set to text/javascript', ->
+      beforeEach ->
+        waitsForPromise ->
+          atom.packages.activatePackage('language-javascript')
 
-    it 'tokenizes the content inside the tag as JavaScript', ->
-      lines = grammar.tokenizeLines '''
-        <script id='id' type='text/javascript'>
-          var hi = 'hi'
-        </script>
-      '''
+      it 'tokenizes the content as JavaScript', ->
+        lines = grammar.tokenizeLines '''
+          <script id='id' type='text/javascript'>
+            var hi = 'hi'
+          </script>
+        '''
 
-      expect(lines[0][0]).toEqual value: '<', scopes: ['text.html.basic', 'punctuation.definition.tag.html']
+        expect(lines[0][0]).toEqual value: '<', scopes: ['text.html.basic', 'punctuation.definition.tag.html']
+        expect(lines[1][0]).toEqual value: '  ', scopes: ['text.html.basic', 'source.js.embedded.html']
+        expect(lines[1][1]).toEqual value: 'var', scopes: ['text.html.basic', 'source.js.embedded.html', 'storage.type.var.js']
 
-      expect(lines[1][0]).toEqual value: '  ', scopes: ['text.html.basic', 'source.js.embedded.html']
-      expect(lines[1][1]).toEqual value: 'var', scopes: ['text.html.basic', 'source.js.embedded.html', 'storage.type.var.js']
-
-  describe "comments", ->
-    it "tokenizes -- as an error", ->
+  describe 'comments', ->
+    it 'tokenizes -- as invalid', ->
       {tokens} = grammar.tokenizeLine '<!-- some comment --->'
 
       expect(tokens[0]).toEqual value: '<!--', scopes: ['text.html.basic', 'comment.block.html', 'punctuation.definition.comment.html']
