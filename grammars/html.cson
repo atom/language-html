@@ -1,6 +1,7 @@
 'scopeName': 'text.html.basic'
 'fileTypes': [
   'ejs'
+  'etlua'
   'htm'
   'html'
   'kit'
