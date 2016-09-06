@@ -251,7 +251,7 @@
   # P
   'Paragraph':
     'prefix': 'p'
-    'body': '<p>\n\t$1\n</p>'
+    'body': '<p>$1</p>'
   'Parameter':
     'prefix': 'param'
     'body': '<param name="${1:foo}" value="${2:bar}">$0'
