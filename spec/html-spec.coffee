@@ -197,3 +197,5 @@ describe 'HTML grammar', ->
       """
       for line in invalid.split /\n/
         expect(grammar.firstLineRegex.scanner.findNextMatchSync(line)).toBeNull()
+
+    # -*- coffee -*- # Tell GitHub this isn't an HTML document
