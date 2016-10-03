@@ -194,8 +194,7 @@ describe 'HTML grammar', ->
         # vim:noexpandtab sts:4 ft:HTML ts:4
         # vim:noexpandtab titlestring=hi\\|there\\ ft=HTML ts=4
         # vim:noexpandtab titlestring=hi\\|there\\\\\\ ft=HTML ts=4
+        # vim: set ft=coffee ft2=HTML: # Don't change: see atom/language-html#138
       """
       for line in invalid.split /\n/
         expect(grammar.firstLineRegex.scanner.findNextMatchSync(line)).toBeNull()
-
-    # -*- coffee -*- # Tell GitHub this isn't an HTML document
