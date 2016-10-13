@@ -242,7 +242,21 @@
     'contentName': 'source.js.embedded.html'
     'patterns': [
       {
-        'include': 'source.js'
+        'include': '#tag-stuff'
+      }
+      {
+        'begin': '(?<!</(?:script|SCRIPT))(>)'
+        'captures':
+          '1':
+            'name': 'punctuation.definition.tag.html'
+          '2':
+            'name': 'entity.name.tag.script.html'
+        'end': '(</)((?i:script))'
+        'patterns': [
+          {
+            'include': 'source.js'
+          }
+        ]
       }
     ]
   }
