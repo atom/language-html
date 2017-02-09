@@ -11,7 +11,7 @@
     'body': '<address${1: class="$2"}>\n\t$3\n</address>'
   'Area':
     'prefix': 'area'
-    'body': '<area${1: shape="${2:default}"} coords="$3"${4: href="${5:#}" alt="$6"}>$0'
+    'body': '<area${1: shape="${2:default}"} coords="$3"${4: href="${5:#}" alt="$6"}/>$0'
   'Article':
     'prefix': 'article'
     'body': '<article class="$1">\n\t$2\n</article>'
@@ -30,7 +30,7 @@
     'body': '<b>$1</b>$0'
   'Base':
     'prefix': 'base'
-    'body': '<base href="${1:#}" target="${2:_blank}">$0'
+    'body': '<base href="${1:#}" target="${2:_blank}"/>$0'
   'Bi-Directional Isolation':
     'prefix': 'bdi'
     'body': '<bdi${1: dir="${2:rtl}"}>$3</bdi>$0'
@@ -42,7 +42,7 @@
     'body': '<blockquote cite="${1:http://}">\n\t$2\n</blockquote>'
   'Line Breaker':
     'prefix': 'br'
-    'body': '<br>'
+    'body': '<br/>'
   'Button':
     'prefix': 'button'
     'body': '<button type="${1:button}"${2: name="${3:button}"}>$4</button>$0'
@@ -61,7 +61,7 @@
     'body': '<code>$1</code>$0'
   'Column':
     'prefix': 'col'
-    'body': '<col${1: span="${2:2}"}>$0'
+    'body': '<col${1: span="${2:2}"}/>$0'
   'Column Group':
     'prefix': 'colgroup'
     'body': '<colgroup>$1</colgroup>$0'
@@ -105,7 +105,7 @@
     'body': '<em>$1</em>$0'
   'Embed':
     'prefix': 'embed'
-    'body': '<embed type="${1:video/quicktime}" src="${2:#}" width="${3:300}" height="${4:300}">$0'
+    'body': '<embed type="${1:video/quicktime}" src="${2:#}" width="${3:300}" height="${4:300}"/>$0'
   # F
   'Favicon':
     'prefix': 'favicon'
@@ -156,7 +156,7 @@
     'body': '<hgroup>\n\t$1\n</hgroup>'
   'Horizontal Rule':
     'prefix': 'hr'
-    'body': '<hr>'
+    'body': '<hr/>'
   'HTML':
     'prefix': 'html'
     'body': '<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<meta charset="utf-8">\n\t\t<title>$1</title>\n\t</head>\n\t<body>\n\t\t$2\n\t</body>\n</html>'
@@ -169,10 +169,10 @@
     'body': '<iframe src="$1" width="$2" height="$3">$4</iframe>$0'
   'Image':
     'prefix': 'img'
-    'body': '<img src="$1" alt="$2">$0'
+    'body': '<img src="$1" alt="$2"/>$0'
   'Input':
     'prefix': 'input'
-    'body': '<input type="${1:text}" name="$2" value="$3">$0'
+    'body': '<input type="${1:text}" name="$2" value="$3"/>$0'
   'Import':
     'prefix': 'import'
     'body': '<link rel="import" href="$1">$0'
@@ -199,7 +199,7 @@
     'body': '<li>$1</li>$0'
   'Link':
     'prefix': 'link'
-    'body': '<link rel="${1:stylesheet}" href="${2:/css/master.css}">$0'
+    'body': '<link rel="${1:stylesheet}" href="${2:/css/master.css}"/>$0'
   # M
   'Main':
     'prefix': 'main'
@@ -227,7 +227,7 @@
     'body': '<a href="mailto:${1:joe@example.com}?subject=${2:feedback}">${3:email me}</a>$0'
   'Meta':
     'prefix': 'meta'
-    'body': '<meta name="${1:twitter:}" content="$2">$0'
+    'body': '<meta name="${1:twitter:}" content="$2"/>$0'
   # N
   'Navigation':
     'prefix': 'nav'
@@ -257,7 +257,7 @@
     'body': '<p>$1</p>$0'
   'Parameter':
     'prefix': 'param'
-    'body': '<param name="$1" value="$2">$0'
+    'body': '<param name="$1" value="$2"/>$0'
   'Preformatted Text':
     'prefix': 'pre'
     'body': '<pre>$1</pre>$0'
@@ -308,7 +308,7 @@
     'body': '<small>$1</small>$0'
   'Source':
     'prefix': 'source'
-    'body': '<source src="${1:https://}" type="${2:video/}">$0'
+    'body': '<source src="${1:https://}" type="${2:video/}"/>$0'
   'Span':
     'prefix': 'span'
     'body': '<span>$1</span>$0'
@@ -366,7 +366,7 @@
     'body': '<tr>\n\t$1\n</tr>'
   'Track':
     'prefix': 'track'
-    'body': '<track kind="${1:subtitles}" src="${2:sampleSubtitles_en.srt}" srclang="${3:en}">$0'
+    'body': '<track kind="${1:subtitles}" src="${2:sampleSubtitles_en.srt}" srclang="${3:en}"/>$0'
   # U
   'Underline':
     'prefix': 'u'
@@ -384,7 +384,7 @@
   # W
   'Word Break Opportunity':
     'prefix': 'wbr'
-    'body': '<wbr>'
+    'body': '<wbr/>'
 
 
 # These null out the snippets so the snippets are not available when in a tag or
