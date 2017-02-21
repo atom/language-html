@@ -8,6 +8,8 @@
   'tmpl'
   'tpl'
   'xhtml'
+  'markdown'
+  'md'
 ]
 'firstLineMatch': '''(?xi)
   # Document type definition
