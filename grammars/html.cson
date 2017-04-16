@@ -8,6 +8,7 @@
   'tmpl'
   'tpl'
   'xhtml'
+  'jst'
 ]
 'firstLineMatch': '''(?xi)
   # Document type definition
