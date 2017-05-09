@@ -199,7 +199,7 @@
     'body': '<li>$1</li>$0'
   'Link':
     'prefix': 'link'
-    'body': '<link rel="${1:stylesheet}" href="${2:/css/master.css}">$0'
+    'body': '<link rel="${1:stylesheet}" href="${2:css/master.css}">$0'
   # M
   'Main':
     'prefix': 'main'
