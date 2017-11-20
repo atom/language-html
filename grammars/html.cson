@@ -356,15 +356,16 @@
     ]
   }
   {
-    'begin': '(</?)([a-zA-Z0-9:-]+)'
+    # Opening tag (optionally self-closing)
+    'begin': '(<)([a-zA-Z0-9:-]+)'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.begin.html'
       '2':
         'name': 'entity.name.tag.other.html'
-    'end': '(>)'
+    'end': '/?>'
     'endCaptures':
-      '1':
+      '0':
         'name': 'punctuation.definition.tag.end.html'
     'name': 'meta.tag.other.html'
     'patterns': [
@@ -372,6 +373,20 @@
         'include': '#tag-stuff'
       }
     ]
+  }
+  {
+    # Closing tag, which doesn't allow attributes
+    'begin': '(</)([a-zA-Z0-9:-]+)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.begin.html'
+      '2':
+        'name': 'entity.name.tag.other.html'
+    'end': '>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.tag.end.html'
+    'name': 'meta.tag.other.html'
   }
   {
     'include': '#text-entities'

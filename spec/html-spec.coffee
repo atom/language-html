@@ -616,6 +616,32 @@ describe 'HTML grammar', ->
       expect(tokens[1]).toEqual value: 'foo', scopes: ['text.html.basic', 'meta.tag.other.html', 'entity.name.tag.other.html']
       expect(tokens[2]).toEqual value: '>', scopes: ['text.html.basic', 'meta.tag.other.html', 'punctuation.definition.tag.end.html']
 
+    it 'tokenizes unrecognized self-closing tags', ->
+      {tokens} = grammar.tokenizeLine '<foo/>'
+      expect(tokens[0]).toEqual value: '<', scopes: ['text.html.basic', 'meta.tag.other.html', 'punctuation.definition.tag.begin.html']
+      expect(tokens[1]).toEqual value: 'foo', scopes: ['text.html.basic', 'meta.tag.other.html', 'entity.name.tag.other.html']
+      expect(tokens[2]).toEqual value: '/>', scopes: ['text.html.basic', 'meta.tag.other.html', 'punctuation.definition.tag.end.html']
+
+    it 'tokenizes attributes in opening tags of unrecognized tag names', ->
+      {tokens} = grammar.tokenizeLine '<foo class="test">'
+      expect(tokens[0]).toEqual value: '<', scopes: ['text.html.basic', 'meta.tag.other.html', 'punctuation.definition.tag.begin.html']
+      expect(tokens[1]).toEqual value: 'foo', scopes: ['text.html.basic', 'meta.tag.other.html', 'entity.name.tag.other.html']
+      expect(tokens[3]).toEqual value: 'class', scopes: ['text.html.basic', 'meta.tag.other.html', 'meta.attribute-with-value.class.html', 'entity.other.attribute-name.class.html']
+      expect(tokens[8]).toEqual value: '>', scopes: ['text.html.basic', 'meta.tag.other.html', 'punctuation.definition.tag.end.html']
+
+    it 'tokenizes the closing tag of an unrecognized tag name', ->
+      {tokens} = grammar.tokenizeLine '</foo>'
+      expect(tokens[0]).toEqual value: '</', scopes: ['text.html.basic', 'meta.tag.other.html', 'punctuation.definition.tag.begin.html']
+      expect(tokens[1]).toEqual value: 'foo', scopes: ['text.html.basic', 'meta.tag.other.html', 'entity.name.tag.other.html']
+      expect(tokens[2]).toEqual value: '>', scopes: ['text.html.basic', 'meta.tag.other.html', 'punctuation.definition.tag.end.html']
+
+    it 'does not tokenize attributes in closing tags of unrecognized tag names', ->
+      {tokens} = grammar.tokenizeLine '</foo class="test">'
+      expect(tokens[0]).toEqual value: '</', scopes: ['text.html.basic', 'meta.tag.other.html', 'punctuation.definition.tag.begin.html']
+      expect(tokens[1]).toEqual value: 'foo', scopes: ['text.html.basic', 'meta.tag.other.html', 'entity.name.tag.other.html']
+      expect(tokens[2]).toEqual value: ' class="test"', scopes: ['text.html.basic', 'meta.tag.other.html']
+      expect(tokens[3]).toEqual value: '>', scopes: ['text.html.basic', 'meta.tag.other.html', 'punctuation.definition.tag.end.html']
+
     it 'tolerates colons in other tag names', ->
       {tokens} = grammar.tokenizeLine '<foo:bar>'
       expect(tokens[1]).toEqual value: 'foo:bar', scopes: ['text.html.basic', 'meta.tag.other.html', 'entity.name.tag.other.html']
