@@ -1,7 +1,7 @@
 path = require 'path'
 grammarTest = require 'atom-grammar-test'
 
-describe 'HTML grammar', ->
+describe 'TextMate HTML grammar', ->
   grammar = null
 
   beforeEach ->
