@@ -318,7 +318,7 @@
     'body': '<source src="${1:https://}" type="${2:video/}">$0'
   'Span':
     'prefix': 'span'
-    'body': '<span>$1</span>$0'
+    'body': '<span class="$1">$2</span>$0'
   'Strong':
     'prefix': 'strong'
     'body': '<strong>$1</strong>$0'
