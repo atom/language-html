@@ -1,6 +1,5 @@
 # HTML language support in Atom
-[![macOS Build Status](https://travis-ci.org/atom/language-html.svg?branch=master)](https://travis-ci.org/atom/language-html)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/t6pk6mmdgcelfg85/branch/master?svg=true)](https://ci.appveyor.com/project/Atom/language-html/branch/master)
+![ci](https://github.com/atom/language-html/workflows/ci/badge.svg)
 [![Dependency Status](https://david-dm.org/atom/language-html.svg)](https://david-dm.org/atom/language-html) 
 
 Adds syntax highlighting and snippets to HTML files in Atom.
