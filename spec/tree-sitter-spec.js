@@ -22,60 +22,60 @@ describe('Tree-sitter HTML grammar', () => {
 
     // Tag punctuation.
     expect(editor.scopeDescriptorForBufferPosition([0, 0]).toString()).toBe(
-      '.text.html.basic .source.html .punctuation.definition.tag.begin'
+      '.text.html.basic .source.html .punctuation.definition.tag.html'
     )
 
     expect(editor.scopeDescriptorForBufferPosition([0, 15]).toString()).toBe(
-      '.text.html.basic .source.html .punctuation.definition.tag.end'
+      '.text.html.basic .source.html .punctuation.definition.tag.html'
     )
 
     expect(editor.scopeDescriptorForBufferPosition([6, 0]).toString()).toBe(
-      '.text.html.basic .source.html .punctuation.definition.tag.begin'
+      '.text.html.basic .source.html .punctuation.definition.tag.html'
     )
 
     expect(editor.scopeDescriptorForBufferPosition([6, 6]).toString()).toBe(
-      '.text.html.basic .source.html .punctuation.definition.tag.end'
+      '.text.html.basic .source.html .punctuation.definition.tag.html'
     )
 
     // Attribute-value pair punctuation.
     expect(editor.scopeDescriptorForBufferPosition([0, 10]).toString()).toBe(
-      '.text.html.basic .source.html .punctuation.separator.key-value.html'
+      '.text.html.basic .source.html .punctuation.delimiter.pair.attribute-value.html'
     )
 
     expect(editor.scopeDescriptorForBufferPosition([2, 18]).toString()).toBe(
-      '.text.html.basic .source.html .punctuation.definition.string.begin'
+      '.text.html.basic .source.html .string.quoted.attribute-value.html .punctuation.definition.string.html'
     )
 
     expect(editor.scopeDescriptorForBufferPosition([2, 24]).toString()).toBe(
-      '.text.html.basic .source.html .punctuation.definition.string.end'
+      '.text.html.basic .source.html .string.quoted.attribute-value.html .punctuation.definition.string.html'
     )
 
     // Ensure an attribute value delimited by single-quotes won't mark a
     // double-quote in the value as punctuation.
     expect(editor.scopeDescriptorForBufferPosition([3, 15]).toString()).toBe(
-      '.text.html.basic .source.html .punctuation.definition.string.begin'
+      '.text.html.basic .source.html .string.quoted.attribute-value.html .punctuation.definition.string.html'
     )
 
     expect(editor.scopeDescriptorForBufferPosition([3, 16]).toString()).toBe(
-      '.text.html.basic .source.html .string.html'
+      '.text.html.basic .source.html .string.quoted.attribute-value.html'
     )
 
     expect(editor.scopeDescriptorForBufferPosition([3, 17]).toString()).toBe(
-      '.text.html.basic .source.html .punctuation.definition.string.end'
+      '.text.html.basic .source.html .string.quoted.attribute-value.html .punctuation.definition.string.html'
     )
 
     // Ensure an attribute value delimited by double-quotes won't mark a
     // single-quote in the value as punctuation.
     expect(editor.scopeDescriptorForBufferPosition([3, 27]).toString()).toBe(
-      '.text.html.basic .source.html .punctuation.definition.string.begin'
+      '.text.html.basic .source.html .string.quoted.attribute-value.html .punctuation.definition.string.html'
     )
 
     expect(editor.scopeDescriptorForBufferPosition([3, 32]).toString()).toBe(
-      '.text.html.basic .source.html .string.html'
+      '.text.html.basic .source.html .string.quoted.attribute-value.html'
     )
 
     expect(editor.scopeDescriptorForBufferPosition([3, 66]).toString()).toBe(
-      '.text.html.basic .source.html .punctuation.definition.string.end'
+      '.text.html.basic .source.html .string.quoted.attribute-value.html .punctuation.definition.string.html'
     )
   })
 })
