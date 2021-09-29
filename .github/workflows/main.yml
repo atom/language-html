@@ -17,10 +17,6 @@ jobs:
     - uses: UziTech/action-setup-atom@v2
       with:
         version: ${{ matrix.channel }}
-    - name: Install windows-build-tools
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: |
-        npm i windows-build-tools@4.0.0
     - name: Install dependencies
       run: apm install
     - name: Run tests
