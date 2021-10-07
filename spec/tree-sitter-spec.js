@@ -20,6 +20,12 @@ describe('Tree-sitter HTML grammar', () => {
       </html>
     `)
 
+    grammar = atom.grammars.grammarForScopeName('text.html.basic')
+
+    lines = grammar.tokenizeLines(editor.getText())
+
+    expect(lines).toBe([])
+
     // Tag punctuation.
     expect(editor.scopeDescriptorForBufferPosition([0, 0]).toString()).toBe(
       '.text.html.basic .source.html .punctuation.definition.tag.begin'
