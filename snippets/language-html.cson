@@ -1,7 +1,7 @@
 # Important: When adding a new snippet,
-# there is a second section halfway down this file
-# where you need to null-out the snippet to prevent it from
-# appearing in tags or embedded contexts
+# there is a second section halfway down this file.
+# where you need to null-out the snippet to prevent it from.
+# appearing in tags or embedded contexts.
 '.text.html':
   # A
   'Anchor':
