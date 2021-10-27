@@ -162,8 +162,8 @@
     'prefix': 'hr'
     'body': '<hr>'
   'HTML':
-    'prefix': 'html'
-    'body': '<!DOCTYPE html>\n<html lang="${1:en}" dir="${2:ltr}">\n\t<head>\n\t\t<meta charset="utf-8">\n\t\t<title>$3</title>\n\t</head>\n\t<body>\n\t\t$4\n\t</body>\n</html>'
+    'prefix': 'html5'
+    'body': '<!DOCTYPE html>\n<html lang="en">\n<head>\n\t<meta charset="UTF-8">\n\t<meta http-equiv="X-UA-Compatible" content="IE=edge">\n\t<meta name="viewport" content="width=device-width, initial-scale=1.0">\n\t<title>Document</title>\n</head>\n<body>\n</body>\n</html>'
   # I
   'Italic':
     'prefix': 'i'
