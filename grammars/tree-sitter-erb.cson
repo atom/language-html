@@ -23,14 +23,17 @@ comments:
   end: '%>'
 
 scopes:
-  'comment_directive': 'comment.block'
-  'comment_directive > "%>"': 'comment.block'
+  'template': 'source.erb'
 
-  '"<%#"': 'keyword.control.directive'
-  '"<%"': 'keyword.control.directive'
-  '"<%="': 'keyword.control.directive'
-  '"<%_"': 'keyword.control.directive'
-  '"<%-"': 'keyword.control.directive'
-  '"%>"': 'keyword.control.directive'
-  '"-%>"': 'keyword.control.directive'
-  '"_%>"': 'keyword.control.directive'
+  'comment_directive': 'comment.block.html.erb'
+
+  '"<%#"': 'punctuation.definition.comment.html.erb'
+  'comment_directive > "%>"': 'punctuation.definition.comment.html.erb'
+
+  '"<%"': 'punctuation.delimiter.embedded.html.erb'
+  '"<%="': 'punctuation.delimiter.embedded.html.erb'
+  '"<%_"': 'punctuation.delimiter.embedded.html.erb'
+  '"<%-"': 'punctuation.delimiter.embedded.html.erb'
+  '"%>"': 'punctuation.delimiter.embedded.html.erb'
+  '"-%>"': 'punctuation.delimiter.embedded.html.erb'
+  '"_%>"': 'punctuation.delimiter.embedded.html.erb'
